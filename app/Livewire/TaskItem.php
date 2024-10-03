@@ -20,6 +20,13 @@ class TaskItem extends Component
     public $editCategoryId;
     public $categories;
 
+    protected $taskService;
+
+    public function boot(TaskService $taskService)
+    {
+        $this->taskService = $taskService;
+    }
+
     public function mount(Task $task, CategoryService $categoryService)
     {
         $this->task = $task;
@@ -34,7 +41,7 @@ class TaskItem extends Component
         $this->editing = !$this->editing;
     }
 
-    public function updateTask(TaskService $taskService)
+    public function updateTask()
     {
         $this->validate([
             'editTitle' => 'required|string|max:255',
@@ -49,13 +56,17 @@ class TaskItem extends Component
             status: $this->task->status, // Keep the existing status
         );
 
-        $taskService->updateTask($this->task, $taskDto);
+        $this->taskService->updateTask($this->task, $taskDto);
 
         $this->editing = false;
         $this->dispatch('taskUpdated');
+        $this->notification()->success(
+            $title = 'Success!',
+            $description = 'Task has been updated!'
+        );
     }
 
-    public function deleteTask(TaskService $taskService)
+    public function deleteTask()
     {
         $this->dialog()->confirm([
             'title'       => 'Are you sure?',
@@ -64,7 +75,6 @@ class TaskItem extends Component
             'accept'      => [
                 'label'  => 'Yes, delete it',
                 'method' => 'confirmDelete', // Call this method on confirmation
-                'params' => $taskService, // Pass the TaskService as a parameter
             ],
             'reject' => [
                 'label'  => 'No, cancel',
@@ -72,9 +82,9 @@ class TaskItem extends Component
         ]);
     }
 
-    public function confirmDelete(TaskService $taskService)
+    public function confirmDelete()
     {
-        $taskService->deleteTask($this->task);
+        $this->taskService->deleteTask($this->task);
         $this->dispatch('taskUpdated');
         $this->notification()->success(
             $title = 'Success!',
@@ -82,10 +92,14 @@ class TaskItem extends Component
         );
     }
 
-    public function updateStatus(TaskService $taskService, $newStatus)
+    public function updateStatus($newStatus)
     {
-        $taskService->updateTaskStatus($this->task, $newStatus);
+        $this->taskService->updateTaskStatus($this->task, $newStatus);
         $this->dispatch('taskUpdated');
+        $this->notification()->success(
+            $title = 'Success!',
+            $description = 'The task status updated to "' . $newStatus .'"'
+        );
     }
 
     public function render()

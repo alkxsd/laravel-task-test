@@ -39,6 +39,7 @@
         </div>
 
         <x-dialog />
+        <x-notifications />
 
         @stack('modals')
         @wireUiScripts
