@@ -47,10 +47,39 @@ class TaskService
 
     public function updateTaskStatus(Task $task, $newStatus)
     {
-        $task->status = $newStatus;
-        $task->save();
+        $allowedStatuses = [
+            'New' => 'In Progress',
+            'In Progress' => 'Under Review',
+            'Under Review' => 'Completed',
+        ];
+
+        $currentStatus = $task->status;
+
+        // Only allow status change to the next sequential status
+        if (isset($allowedStatuses[$currentStatus]) && $allowedStatuses[$currentStatus] === $newStatus) {
+            $task->status = $newStatus;
+
+            // Log the status change with a timestamp
+            $task->status_history = $task->status_history ?? []; // Initialize if not exists
+            $task->status_history[] = [
+                'status' => $newStatus,
+                'timestamp' => now(),
+            ];
+
+            // If marked as "Completed", set completion date
+            if ($newStatus === 'Completed') {
+                $task->completed_at = now();
+            }
+
+            $task->save();
+        } else {
+            // Handle invalid status transition (e.g., throw an exception, log an error, etc.)
+            // For now, we'll just return the task without updating the status
+        }
+
         return $task;
     }
+
 
     public function getCategories()
     {

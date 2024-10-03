@@ -94,7 +94,7 @@ class TaskItem extends Component
         $this->dispatch('task-updated');
         $this->notification()->success(
             $title = 'Success!',
-            $description = 'The task status updated to "' . $newStatus .'"'
+            $description = 'The task status updated to "' . $newStatus . '"'
         );
     }
 

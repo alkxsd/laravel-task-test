@@ -78,12 +78,54 @@ it('can delete a task', function () {
     expect(Task::count())->toBe(0);
 });
 
-it('can update a task\'s status', function () {
+
+it('can update a task\'s status to the next sequential status', function () {
     $task = Task::factory()->create(['status' => 'New']);
 
     $taskService = new TaskService();
-    $updatedTask = $taskService->updateTaskStatus($task, 'Completed');
 
-    expect($updatedTask->status)->not()->toBe('New');
+    // Valid transition: New -> In Progress
+    $updatedTask = $taskService->updateTaskStatus($task, 'In Progress');
+    expect($updatedTask->status)->toBe('In Progress');
+    expect($updatedTask->status_history)->toHaveCount(1);
+    expect($updatedTask->status_history[0]['status'])->toBe('In Progress');
+
+    // Valid transition: In Progress -> Under Review
+    $updatedTask = $taskService->updateTaskStatus($updatedTask, 'Under Review');
+    expect($updatedTask->status)->toBe('Under Review');
+    expect($updatedTask->status_history)->toHaveCount(2);
+    expect($updatedTask->status_history[1]['status'])->toBe('Under Review');
+
+    // Valid transition: Under Review -> Completed
+    $updatedTask = $taskService->updateTaskStatus($updatedTask, 'Completed');
     expect($updatedTask->status)->toBe('Completed');
+    expect($updatedTask->status_history)->toHaveCount(3);
+    expect($updatedTask->status_history[2]['status'])->toBe('Completed');
+    expect($updatedTask->completed_at)->not()->toBeNull();
+});
+
+it('cannot update a task\'s status to a non-sequential status', function () {
+    $task = Task::factory()->create(['status' => 'New']);
+
+    $taskService = new TaskService();
+
+    // Invalid transition: New -> Under Review
+    $updatedTask = $taskService->updateTaskStatus($task, 'Under Review');
+    expect($updatedTask->status)->toBe('New'); // Status should remain the same
+    expect($updatedTask->status_history)->toBeNull();
+
+    // Invalid transition: In Progress -> Completed (without going through Under Review)
+    $updatedTask = $taskService->updateTaskStatus($updatedTask, 'Completed');
+    expect($updatedTask->status)->toBe('New');
+    expect($updatedTask->status_history)->toBeNull();
+});
+
+it('cannot set a task\'s status back to "New" once changed', function () {
+    $task = Task::factory()->create(['status' => 'In Progress']);
+
+    $taskService = new TaskService();
+
+    // Invalid transition: In Progress -> New
+    $updatedTask = $taskService->updateTaskStatus($task, 'New');
+    expect($updatedTask->status)->toBe('In Progress');
 });
