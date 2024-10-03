@@ -11,7 +11,7 @@ class TaskService
 {
     public function getTasksForUser(User $user)
     {
-        return $user->tasks()->with('category')->get();
+        return $user->tasks()->with('category')->orderBy('created_at', 'desc');
     }
 
     public function createTask($user, TaskDto $taskDto)

@@ -16,7 +16,7 @@ it('can get tasks for a user', function () {
     $task = Task::factory()->create(['user_id' => $user->id]);
 
     $taskService = new TaskService();
-    $tasks = $taskService->getTasksForUser($user);
+    $tasks = $taskService->getTasksForUser($user)->get();
 
     expect($tasks)->toHaveCount(1);
     expect($tasks[0]->id)->toBe($task->id);

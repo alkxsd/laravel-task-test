@@ -59,7 +59,7 @@ class TaskItem extends Component
         $this->taskService->updateTask($this->task, $taskDto);
 
         $this->editing = false;
-        $this->dispatch('taskUpdated');
+        $this->dispatch('task-updated');
         $this->notification()->success(
             $title = 'Success!',
             $description = 'Task has been updated!'
@@ -85,17 +85,13 @@ class TaskItem extends Component
     public function confirmDelete()
     {
         $this->taskService->deleteTask($this->task);
-        $this->dispatch('taskUpdated');
-        $this->notification()->success(
-            $title = 'Success!',
-            $description = 'The task has been deleted'
-        );
+        redirect(route('tasks.index'));
     }
 
     public function updateStatus($newStatus)
     {
         $this->taskService->updateTaskStatus($this->task, $newStatus);
-        $this->dispatch('taskUpdated');
+        $this->dispatch('task-updated');
         $this->notification()->success(
             $title = 'Success!',
             $description = 'The task status updated to "' . $newStatus .'"'

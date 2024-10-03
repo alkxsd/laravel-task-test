@@ -1,6 +1,89 @@
 <a href="/">
-    <svg class="w-16 h-16" viewbox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11.395 44.428C4.557 40.198 0 32.632 0 24 0 10.745 10.745 0 24 0a23.891 23.891 0 0113.997 4.502c-.2 17.907-11.097 33.245-26.602 39.926z" fill="#6875F5"/>
-        <path d="M14.134 45.885A23.914 23.914 0 0024 48c13.255 0 24-10.745 24-24 0-3.516-.756-6.856-2.115-9.866-4.659 15.143-16.608 27.092-31.75 31.751z" fill="#6875F5"/>
+
+    <svg {{ $attributes }} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="w-16 h-16" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve">
+        <g>
+            <g>
+                <g>
+                    <path fill="#282D33" d="M80.139,103.801H47.715V55.703H30.227V23.282h67.4v32.421H80.139V103.801z M51.715,99.801h24.424V51.703
+                        h17.488V27.282h-59.4v24.421h17.488V99.801z"/>
+                </g>
+                <g>
+                    <g>
+                        <rect y="23.279" fill="#282D33" width="5.362" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="9.901" y="23.279" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="19.799" y="23.279" fill="#282D33" width="5.364" height="4"/>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <rect x="102.838" y="23.279" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="112.736" y="23.279" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="122.637" y="23.279" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <rect x="76.139" y="3.551" fill="#282D33" width="4" height="5.363"/>
+                    </g>
+                    <g>
+                        <rect x="76.139" y="13.452" fill="#282D33" width="4" height="5.364"/>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <rect x="47.715" y="3.551" fill="#282D33" width="4" height="5.363"/>
+                    </g>
+                    <g>
+                        <rect x="47.715" y="13.452" fill="#282D33" width="4" height="5.364"/>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <rect x="76.139" y="109.186" fill="#282D33" width="4" height="5.365"/>
+                    </g>
+                    <g>
+                        <rect x="76.139" y="119.086" fill="#282D33" width="4" height="5.363"/>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <rect x="47.715" y="109.186" fill="#282D33" width="4" height="5.365"/>
+                    </g>
+                    <g>
+                        <rect x="47.715" y="119.086" fill="#282D33" width="4" height="5.363"/>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <rect y="51.703" fill="#282D33" width="5.362" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="9.901" y="51.703" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="19.799" y="51.703" fill="#282D33" width="5.364" height="4"/>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <rect x="102.838" y="51.703" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="112.736" y="51.703" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                    <g>
+                        <rect x="122.637" y="51.703" fill="#282D33" width="5.363" height="4"/>
+                    </g>
+                </g>
+            </g>
+        </g>
     </svg>
 </a>

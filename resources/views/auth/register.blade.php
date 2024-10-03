@@ -10,23 +10,51 @@
             @csrf
 
             <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-input
+                    icon="user"
+                    label="Name"
+                    name="name"
+                    :value="old('name')"
+                    placeholder="your name"
+                    required autofocus autocomplete="name"
+                />
             </div>
 
             <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                {{-- <x-label for="email" value="{{ __('Email') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" /> --}}
+                <x-input
+                    icon="at-symbol"
+                    label="Email"
+                    name="email"
+                    :value="old('email')"
+                    placeholder="your email address"
+                    required autofocus autocomplete="email"
+                />
             </div>
 
             <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                <x-input
+                    icon="lock-closed"
+                    label="Password"
+                    name="password"
+                    type="password"
+                    :value="old('password')"
+                    placeholder="your password"
+                    required autofocus autocomplete="password"
+                />
             </div>
 
             <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <x-input
+                    icon="lock-closed"
+                    label="Confirm Password"
+                    name="password_confirmation"
+                    type="password"
+                    :value="old('password_confirmation')"
+                    placeholder="confirm your password"
+                    required autofocus autocomplete="email"
+                />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -51,7 +79,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-button class="ms-4">
+                <x-button class="ms-4" type="submit">
                     {{ __('Register') }}
                 </x-button>
             </div>

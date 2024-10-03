@@ -12,8 +12,9 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/', [TaskController::class, 'index'])->name('tasks.index'); // Updated route
+    Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect('/');
     })->name('dashboard');
 
     // Locale switcher
