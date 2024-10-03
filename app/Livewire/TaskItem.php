@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use App\Services\TaskService;
+use App\Services\CategoryService;
+use App\Models\Task;
+use App\DTO\TaskDto;
+use WireUi\Traits\WireUiActions;
+
+class TaskItem extends Component
+{
+    use WireUiActions;
+
+    public Task $task;
+    public $editing = false;
+    public $editTitle;
+    public $editDescription;
+    public $editCategoryId;
+    public $categories;
+
+    public function mount(Task $task, CategoryService $categoryService)
+    {
+        $this->task = $task;
+        $this->editTitle = $task->title;
+        $this->editDescription = $task->description;
+        $this->editCategoryId = $task->category_id;
+        $this->categories = $categoryService->getCategories();
+    }
+
+    public function toggleEdit()
+    {
+        $this->editing = !$this->editing;
+    }
+
+    public function updateTask(TaskService $taskService)
+    {
+        $this->validate([
+            'editTitle' => 'required|string|max:255',
+            'editDescription' => 'nullable|string',
+            'editCategoryId' => 'required|exists:categories,id',
+        ]);
+
+        $taskDto = new TaskDto(
+            title: $this->editTitle,
+            description: $this->editDescription,
+            categoryId: $this->editCategoryId,
+            status: $this->task->status, // Keep the existing status
+        );
+
+        $taskService->updateTask($this->task, $taskDto);
+
+        $this->editing = false;
+        $this->dispatch('taskUpdated');
+    }
+
+    public function deleteTask(TaskService $taskService)
+    {
+        $this->dialog()->confirm([
+            'title'       => 'Are you sure?',
+            'description' => 'This task will be permanently deleted.',
+            'icon'        => 'error',
+            'accept'      => [
+                'label'  => 'Yes, delete it',
+                'method' => 'confirmDelete', // Call this method on confirmation
+                'params' => $taskService, // Pass the TaskService as a parameter
+            ],
+            'reject' => [
+                'label'  => 'No, cancel',
+            ],
+        ]);
+    }
+
+    public function confirmDelete(TaskService $taskService)
+    {
+        $taskService->deleteTask($this->task);
+        $this->dispatch('taskUpdated');
+        $this->notification()->success(
+            $title = 'Success!',
+            $description = 'The task has been deleted'
+        );
+    }
+
+    public function updateStatus(TaskService $taskService, $newStatus)
+    {
+        $taskService->updateTaskStatus($this->task, $newStatus);
+        $this->dispatch('taskUpdated');
+    }
+
+    public function render()
+    {
+        return view('livewire.task-item');
+    }
+}

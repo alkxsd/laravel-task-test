@@ -38,6 +38,8 @@
             </main>
         </div>
 
+        <x-dialog />
+
         @stack('modals')
         @wireUiScripts
         @livewireScripts
