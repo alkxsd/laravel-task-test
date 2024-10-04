@@ -9,15 +9,18 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Services\TaskService;
 use App\Services\CategoryService;
+use App\DTO\TaskFilterDto;
+use App\Traits\Task\Filterable as TaskFilterable;
+use stdClass;
 
 class TaskList extends Component
 {
-    use WithPagination, WireUiActions;
+    use WithPagination, WireUiActions, TaskFilterable;
 
     protected $taskService;
     public $search = '';
     public $status = '';
-    public $category_id = '';
+    public $category_id = 0;
     public $categories;
 
     protected $listeners = [
@@ -45,20 +48,9 @@ class TaskList extends Component
 
     public function getTasksProperty()
     {
-        $query = $this->taskService->getTasksForUser(auth()->user());
+        $taskFilterDto = TaskFilterDto::fromLivewire($this); // Create DTO from component
 
-        // Search by task title
-        if ($this->search) {
-            $query->where('title', 'like', '%' . $this->search . '%');
-        }
-        // Filter by task status
-        if ($this->status) {
-            $query->where('status', $this->status);
-        }
-        // Filter by category
-        if ($this->category_id) {
-            $query->where('category_id', $this->category_id);
-        }
+        $query = $this->filterTasks($taskFilterDto, $this->taskService);
 
         return $query->paginate(10)
             ->withQueryString();

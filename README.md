@@ -22,8 +22,11 @@ Before running this application, ensure you have the following installed:
 ## Stretch Goals
 * Web App
     - Can filter task by title searching, status and category select filter.
+    - Uses Trait(App/Traits/Tasks/Filterable)
     - Pagination implementation
-
+* API
+    - The GET api/tasks should also be able to filter with title searching, status and category, please see api doc for the GET api/tasks
+    - Uses Trait(App/Traits/Tasks/Filterable)
 
 ## Installation and Usage
 
@@ -183,9 +186,18 @@ All protected routes require a Bearer Token:
 
 #### Headers
 
-| Key   | Value               |
+| Key   | Value               |
 |-------|---------------------|
-| Accept | application/json    |
+| Accept | application/json    |
+
+
+#### Query Parameters
+
+| Parameter | Description                                    |
+| --------- | ---------------------------------------------- |
+| `search`   | (Optional) Search by task title                |
+| `status`   | (Optional) Filter by task status              |
+| `category_id` | (Optional) Filter by category ID            |
 
 ---
 

@@ -71,38 +71,58 @@
       "response": []
     },
     {
-      "name": "Get Tasks",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
+        "name": "Get Tasks",
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "GET",
+          "header": [
             {
-              "key": "token",
-              "value": "{{token}}",
-              "type": "string"
+              "key": "Accept",
+              "value": "application/json",
+              "type": "text"
             }
-          ]
-        },
-        "method": "GET",
-        "header": [
-            {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-            }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/api/tasks",
-          "host": [
-            "{{baseUrl}}"
           ],
-          "path": [
-            "api",
-            "tasks"
-          ]
-        }
-      },
-      "response": []
+          "url": {
+            "raw": "{{baseUrl}}/api/tasks?search=Task Title Here &status=In Progress&category_id=2",
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "path": [
+              "api",
+              "tasks"
+            ],
+            "query": [
+              {
+                "key": "search",
+                "value": "API",
+                "description": "Search by title",
+                "disabled": false
+              },
+              {
+                "key": "status",
+                "value": "In Progress",
+                "description": "Filter by status",
+                "disabled": false
+              },
+              {
+                "key": "category_id",
+                "value": "2",
+                "description": "Filter by category ID",
+                "disabled": false
+              }
+            ]
+          }
+        },
+        "response": []
     },
     {
       "name": "Create Task",

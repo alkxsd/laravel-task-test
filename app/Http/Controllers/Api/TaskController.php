@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Services\TaskService;
 use App\Models\Task;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Controllers\Controller;
+use App\DTO\TaskFilterDto;
 use App\DTO\TaskDto;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Traits\Task\Filterable as TaskFilterable;
 
 class TaskController extends Controller
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, TaskFilterable;
 
     protected $taskService;
 
@@ -22,9 +24,12 @@ class TaskController extends Controller
         $this->taskService = $taskService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = $this->taskService->getTasksForUser(auth()->user())->get();
+        $taskFilterDto = TaskFilterDto::fromRequest($request); // Create DTO from request
+
+        $query = $this->filterTasks($taskFilterDto, $this->taskService);
+        $tasks = $query->paginate(10);
         return response()->json($tasks);
     }
 
