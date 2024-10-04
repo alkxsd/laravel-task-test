@@ -3,7 +3,7 @@
         <x-alert title="{{ session('success_message') }}" positive dismissable />
     @endif
     @if ($this->tasks->count() > 0)
-        <ul>
+        <ul class="mt-4">
             @foreach ($this->tasks as $task)
                 <li>
                     <livewire:task-item :task="$task" :wire:key="$task->id">
