@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
 use App\Models\Category;
 use App\Livewire\TaskForm;
 

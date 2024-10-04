@@ -18,7 +18,7 @@ class TaskFactory extends Factory
             'category_id' => Category::factory(),
             'title' => ucfirst($this->faker->words(4, true)),
             'description' => $this->faker->sentence(),
-            'status' => $this->faker->randomElement(['New', 'In Progress', 'Under Review', 'Completed']),
+            'status' => $this->faker->randomElement(['New']),
             'created_at' => now()->subDays(rand(0, 30)),
         ];
     }

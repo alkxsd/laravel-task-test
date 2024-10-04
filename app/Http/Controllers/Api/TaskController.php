@@ -24,7 +24,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = $this->taskService->getTasksForUser(auth()->user());
+        $tasks = $this->taskService->getTasksForUser(auth()->user())->get();
         return response()->json($tasks);
     }
 

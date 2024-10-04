@@ -1,5 +1,6 @@
 <?php
 
+use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 
 /*
@@ -48,4 +49,12 @@ function login($user = null)
     $user = $user ?? User::factory()->create();
 
     return test()->actingAs($user);
+}
+
+function loginApi($user = null)
+{
+    if (!$user) {
+        $user = User::factory()->create();
+    }
+    Sanctum::actingAs($user); // Authenticate the user
 }

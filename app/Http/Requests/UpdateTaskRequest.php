@@ -24,7 +24,7 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'sometimes|exists:categories,id',
             'status' => 'sometimes|in:New,In Progress,Under Review,Completed',
         ];
     }
