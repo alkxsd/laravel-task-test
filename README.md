@@ -31,6 +31,7 @@ Before running this application, ensure you have the following installed:
     ```Bash
     cd laravel-task-test
     ```
+    **NOTE: Please copy `.env.example` to `.env` at the root folder of the project**
 
 3. **Install dependencies(to make sure it installs the `sail`):**
 
