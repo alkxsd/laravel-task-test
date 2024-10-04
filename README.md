@@ -18,6 +18,7 @@ Before running this application, ensure you have the following installed:
 *   **Lean controllers:**  The `TaskController` primarily acts as a router for Livewire components, delegating logic and rendering to the components.
 *   **WireUI components:** I utilized WireUI's pre-built components (cards, buttons, etc.) for streamlined development and a consistent UI.
 *   **Data Transfer Objects (DTOs):** I used DTOs (`TaskDto`) to ensure type safety and data integrity when interacting with the `Task` model, preventing errors and maintaining data consistency.
+*   **Testing with PESTphp:** Covered all the testing from API, to Unit testing of TaskService and feature testing as well of the Frontend side of the application.
 
 ## Installation and Usage
 
