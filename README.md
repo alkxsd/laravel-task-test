@@ -1,11 +1,293 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Installation instruction
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Requirements
+Before running this application, ensure you have the following installed:
+
+* **Docker Desktop:**  [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* **Composer:** [Download Composer](https://getcomposer.org/)
+* **PHP 8 or higher:** (This is typically included with Docker Desktop)
+* **Postman:** [Download Postman](https://www.postman.com/downloads/) (For testing the API)
+* **Available Ports:**
+    * **Port 80:**  (For the web server)
+    * **Port 3306:** (For the MySQL database)
+## My approach
+
+
+*   **Component-based architecture with `Livewire 3`:** I built the frontend using Livewire and WireUI, breaking down the UI into smaller, reusable components for improved organization and maintainability(See *`app\Livewire`* directory to see the action).
+*   **Service classes(with Dependency Injection):** I used service classes (`TaskService`, `CategoryService`) to encapsulate business logic and promote separation of concerns and use them accross the components and api via *Dependency Injection*.
+*   **Lean controllers:**  The `TaskController` primarily acts as a router for Livewire components, delegating logic and rendering to the components.
+*   **WireUI components:** I utilized WireUI's pre-built components (cards, buttons, etc.) for streamlined development and a consistent UI.
+*   **Data Transfer Objects (DTOs):** I used DTOs (`TaskDto`) to ensure type safety and data integrity when interacting with the `Task` model, preventing errors and maintaining data consistency.
+
+## Installation and Usage
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/alkxsd/laravel-task-test
+   ```
+2. **Navigate to the project directory:**
+
+    ```Bash
+    cd laravel-task-test
+    ```
+
+3. **Install dependencies(to make sure it installs the `sail`):**
+
+    ```Bash
+    composer install
+    ```
+
+4. **Start Docker containers:**
+
+    ```Bash
+    ./vendor/bin/sail up -d
+    ```
+
+
+5. **Update Composer dependencies (`./vendor/bin/sail` ensures that we're running commands within the Docker container):**
+
+    ```Bash
+    ./vendor/bin/sail composer update
+    ```
+
+6. **Update Composer dependencies (`./vendor/bin/sail` ensures that we're running commands within the Docker container):**
+
+    ```Bash
+    ./vendor/bin/sail composer update
+    ```
+7. **Clear cache:**
+
+    ```Bash
+    ./vendor/bin/sail optimize:clear
+    ```
+
+7. **Visit the application in your browser:**
+
+    ```Bash
+    http://localhost/
+    ```
+
+8. **Login with the following credentials:**
+    Email: test@example.com
+    Password: password
+
+9. **Or register with a new user**
+    ```Bash
+    http://localhost/register
+    ```
+
+# Testing with PESTphp
+Simply run:
+```
+./vendor/bin/sail artisan test
+```
+Or run this for parallel testing:
+```
+./vendor/bin/sail artisan test --parallel
+```
+
+# Task Management API
+
+## NOTE: You can easily interact with this API using Postman. A Postman collection file named `taskmaster-api-postman.json` is available in the root directory of the project. Simply follow these steps:
+
+1. **Import the Postman Collection**:
+   - Open Postman, and in the "File" menu, click "Import."
+   - Select the `taskmaster-api-postman.json` file from the root directory of the project.
+
+2. **Register or Login to Obtain a Token**:
+   - Use the **POST Register** or **POST Login** requests under the **"Task Management API"** collection to either register a new user or log in using an existing account.
+   - Both actions will return a token that is needed to authenticate other requests.
+
+3. **Update the Token in Postman**:
+   - Once you have the token, in Postman, open the **"Task Management API"** collection.
+   - Navigate to the **"Variables"** tab and update the `token` variable with the token you received from logging in or registering.
+4. **Implemented Laravel Policy here in case you try to modify a task id that is not created by your authenticated account and will throw this respone:**
+    ```
+    {
+        "message": "This action is unauthorized."
+    }
+    ```
+## API Documentation
+## Base URL
+
+`{{baseUrl}}`
+Default is `http://localhost`
+
+## Authorization
+
+All protected routes require a Bearer Token:
+
+- Key: `Authorization`
+- Value: `Bearer {{token}}`
+
+---
+
+### Register
+
+- **Method**: `POST`
+- **Endpoint**: `/api/register`
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+#### Body
+
+```json
+{
+    "name": "Test User",
+    "email": "test@example.com",
+    "password": "password"
+}
+```
+
+---
+
+### Login
+
+- **Method**: `POST`
+- **Endpoint**: `/api/login`
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+#### Body
+
+```json
+{
+    "email": "test@example.com",
+    "password": "password"
+}
+```
+
+---
+
+### Get Tasks
+
+- **Method**: `GET`
+- **Endpoint**: `/api/tasks`
+- **Authorization**: Bearer Token required
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+---
+
+### Create Task
+
+- **Method**: `POST`
+- **Endpoint**: `/api/tasks`
+- **Authorization**: Bearer Token required
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+#### Body
+
+```json
+{
+    "title": "New API Task",
+    "description": "This is a task created via the API",
+    "category_id": 1,
+    "status": "New"
+}
+```
+
+---
+
+### Get Task
+
+- **Method**: `GET`
+- **Endpoint**: `/api/tasks/{task_id}`
+- **Authorization**: Bearer Token required
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+---
+
+### Update Task
+
+- **Method**: `PUT`
+- **Endpoint**: `/api/tasks/{task_id}`
+- **Authorization**: Bearer Token required
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+#### Body
+
+```json
+{
+    "title": "Updated API Task",
+    "description": "This task was updated via the API",
+    "category_id": 2,
+    "status": "In Progress"
+}
+```
+
+---
+
+### Delete Task
+
+- **Method**: `DELETE`
+- **Endpoint**: `/api/tasks/{task_id}`
+- **Authorization**: Bearer Token required
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+---
+
+### Update Task Status
+
+- **Method**: `POST`
+- **Endpoint**: `/api/tasks/{task_id}/update-status`
+- **Authorization**: Bearer Token required
+
+#### Headers
+
+| Key   | Value               |
+|-------|---------------------|
+| Accept | application/json    |
+
+#### Body
+
+```json
+{
+    "status": "Under Review"
+}
+```
+
+---
+
+## Variables
+
+| Key     | Value        |
+|---------|--------------|
+| baseUrl | localhost    |
+| token   | [your_token] |
 
 ## About Laravel
 
