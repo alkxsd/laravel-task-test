@@ -80,6 +80,11 @@ class TaskService
         return $task;
     }
 
+    public function getStatuses() {
+        return [
+            'New', 'In Progress', 'Under Review', 'Completed',
+        ];
+    }
 
     public function getCategories()
     {
