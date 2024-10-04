@@ -9,7 +9,7 @@ it('can create a new task', function () {
     login()->livewire(TaskForm::class)
         ->set('title', 'Test Task')
         ->set('description', 'Test Description')
-        ->set('category_id', 1)
+        ->set('category_id', $category->id)
         ->call('createTask')
         ->assertRedirect(route('tasks.index'))
         ->assertSessionHas('success_message', 'Added new task successfully!');

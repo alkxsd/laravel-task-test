@@ -22,7 +22,7 @@ test('can edit a task', function () {
         'id' => $task->id,
         'title' => 'Updated Title',
         'description' => 'Updated Description',
-        'category_id' => 2,
+        'category_id' => $category2->id,
     ]);
 });
 

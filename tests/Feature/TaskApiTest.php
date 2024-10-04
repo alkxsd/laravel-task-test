@@ -100,4 +100,4 @@ it('can update a task\'s status', function () {
         ->assertJsonFragment(['status' => 'In Progress']);
 
     $this->assertDatabaseHas('tasks', ['status' => 'In Progress']);
-})->group('test123');
+});
