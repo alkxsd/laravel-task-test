@@ -13,14 +13,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/test', function () {
-    dd('WORKS');
-})->name('api.test');
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('tasks', ApiTaskController::class);
     Route::post('/tasks/{task}/update-status', [ApiTaskController::class, 'updateStatus']);
-    Route::get('/test1', function () {
-        dd('SHOULD WORK');
-    })->name('api.test');
 });
