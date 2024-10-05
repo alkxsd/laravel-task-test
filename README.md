@@ -61,10 +61,10 @@ Before running this application, ensure you have the following installed:
     ./vendor/bin/sail composer update
     ```
 
-6. **Update Composer dependencies (`./vendor/bin/sail` ensures that we're running commands within the Docker container):**
+6. **Run DB migration and seed the database:**
 
     ```Bash
-    ./vendor/bin/sail composer update
+    ./vendor/bin/sail artisan migrate:fresh --seed
     ```
 7. **Clear cache:**
 
@@ -75,12 +75,12 @@ Before running this application, ensure you have the following installed:
 7. **Visit the application in your browser:**
 
     ```Bash
-    http://localhost/
+    http://localhost/login
     ```
 
 8. **Login with the following credentials:**
-    Email: test@example.com
-    Password: password
+   - Email: `test@example.com`
+   - Password: `password`
 
 9. **Or register with a new user**
     ```Bash
@@ -88,6 +88,10 @@ Before running this application, ensure you have the following installed:
     ```
 
 # Testing with PESTphp
+- Covered web frontend aspect of the app
+- Wrote unit testing for TaskService
+- Complete feature testing on API endpoints
+
 Simply run:
 ```
 ./vendor/bin/sail artisan test
@@ -112,7 +116,7 @@ Or run this for parallel testing:
 3. **Update the Token in Postman**:
    - Once you have the token, in Postman, open the **"Task Management API"** collection.
    - Navigate to the **"Variables"** tab and update the `token` variable with the token you received from logging in or registering.
-4. **Implemented Laravel Policy here in case you try to modify a task id that is not created by your authenticated account and will throw this respone:**
+4. **Implemented Laravel Policy here in case you try to modify a task id that is not created by your authenticated account and will throw this response:**
     ```
     {
         "message": "This action is unauthorized."
@@ -121,8 +125,9 @@ Or run this for parallel testing:
 ## API Documentation
 ## Base URL
 
-`{{baseUrl}}`
-Default is `http://localhost`
+ ```
+ http://localhost
+ ```
 
 ## Authorization
 
