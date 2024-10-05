@@ -201,7 +201,7 @@ All protected routes require a Bearer Token:
 | Parameter | Description                                    |
 | --------- | ---------------------------------------------- |
 | `search`   | (Optional) Search by task title                |
-| `status`   | (Optional) Filter by task status              |
+| `status`   | (Optional) Filter by task status(eg: *"New"*, *"In Progress"*, *"Under Review"*, *"Completed"* )              |
 | `category_id` | (Optional) Filter by category ID            |
 
 ---
