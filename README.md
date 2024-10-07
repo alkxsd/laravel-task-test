@@ -79,7 +79,7 @@ Before running this application, ensure you have the following installed:
 7. **Clear cache:**
 
     ```Bash
-    ./vendor/bin/sail optimize:clear
+    ./vendor/bin/sail artisan optimize:clear
     ```
 
 7. **Visit the application in your browser:**
