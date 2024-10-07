@@ -76,23 +76,23 @@ Before running this application, ensure you have the following installed:
     ```Bash
     ./vendor/bin/sail artisan migrate:fresh --seed
     ```
-7. **Clear cache:**
+7. **IMPORTANT: Generate application's key:**
 
     ```Bash
-    ./vendor/bin/sail artisan optimize:clear
+    ./vendor/bin/sail artisan key:generate
     ```
 
-7. **Visit the application in your browser:**
+8. **Visit the application in your browser:**
 
     ```Bash
     http://localhost/login
     ```
 
-8. **Login with the following credentials:**
+9. **Login with the following credentials:**
    - Email: `test@example.com`
    - Password: `password`
 
-9. **Or register with a new user**
+10. **Or register with a new user**
     ```Bash
     http://localhost/register
     ```
