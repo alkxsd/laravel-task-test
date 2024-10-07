@@ -40,7 +40,7 @@ Before running this application, ensure you have the following installed:
     ```Bash
     cd laravel-task-test
     ```
-    **NOTE: Please copy `.env.example` to `.env` at the root folder of the project modify DB_* section if necesarry, default is MySQL. **
+    **NOTE: Please copy `.env.example` to `.env` at the root folder of the project and modify DB_* section if necesarry, default is MySQL. **
     ```
     ...
     DB_CONNECTION=mysql
