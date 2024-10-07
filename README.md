@@ -16,7 +16,7 @@ Before running this application, ensure you have the following installed:
 *   **Component-based architecture with `Livewire 3`:** I built the frontend using Livewire and WireUI, breaking down the UI into smaller, reusable components for improved organization and maintainability(See *`app\Livewire`* directory to see the action).
 *   **Service classes(with Dependency Injection):** I used service classes (`TaskService`, `CategoryService`) to encapsulate business logic and promote separation of concerns and use them accross the components and api via *Dependency Injection*.
 *   **Lean controllers:**  The `TaskController` primarily acts as a router for Livewire components, delegating logic and rendering to the components.
-*   **WireUI components:** I utilized WireUI's pre-built components (cards, buttons, etc.) for streamlined development and a consistent UI.
+*   **WireUI components(for Livewire and TailwindCSS):** I utilized WireUI's pre-built components (cards, buttons, etc.) for streamlined development and a consistent UI.
 *   **Data Transfer Objects (DTOs):** I used DTOs (`TaskDto`) to ensure type safety and data integrity when interacting with the `Task` model, preventing errors and maintaining data consistency.
 
 ## Stretch Goals
