@@ -7,7 +7,7 @@ Before running this application, ensure you have the following installed:
 * **Composer:** [Download Composer](https://getcomposer.org/)
 * **PHP 8 or higher:** (This is typically included with Docker Desktop)
 * **Postman:** [Download Postman](https://www.postman.com/downloads/) (For testing the API)
-* **Available Ports:**
+* **Available Ports(ensure these ports were not being used by other application):**
     * **Port 80:**  (For the web server)
     * **Port 3306:** (For the MySQL database)
 ## My approach
@@ -40,7 +40,17 @@ Before running this application, ensure you have the following installed:
     ```Bash
     cd laravel-task-test
     ```
-    **NOTE: Please copy `.env.example` to `.env` at the root folder of the project**
+    **NOTE: Please copy `.env.example` to `.env` at the root folder of the project modify DB_* section if necesarry, default is MySQL. **
+    ```
+    ...
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=laravel
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ...
+    ```
 
 3. **Install dependencies(to make sure it installs the `sail`):**
 
