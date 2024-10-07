@@ -82,17 +82,24 @@ Before running this application, ensure you have the following installed:
     ./vendor/bin/sail artisan key:generate
     ```
 
-8. **Visit the application in your browser:**
+8. **Run npm install and build to compile JS assets via Vite:**
+
+    ```Bash
+    ./vendor/bin/sail npm install
+    ./vendor/bin/sail npm run build
+    ```
+
+9. **Visit the application in your browser:**
 
     ```Bash
     http://localhost/login
     ```
 
-9. **Login with the following credentials:**
+10. **Login with the following credentials:**
    - Email: `test@example.com`
    - Password: `password`
 
-10. **Or register with a new user**
+11. **Or register with a new user**
     ```Bash
     http://localhost/register
     ```
